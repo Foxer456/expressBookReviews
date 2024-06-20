@@ -1,13 +1,13 @@
-const { fetchBookByISBN } = require('./general');
+const { fetchBookByTitle } = require('./general');
 
-async function testFetchBookByISBN() {
+async function testFetchBookByTitle() {
   try {
-    const isbn = '2'; // Replace with a valid ISBN from your database/API
-    const book = await fetchBookByISBN(isbn);
-    console.log('Book details:', book);
+    const title = "Things Fall Apart"; // Replace with the title of the book you want to fetch
+    const book = await fetchBookByTitle(title);
+    console.log(`Book details for "${title}":`, book);
   } catch (error) {
     console.error('Error:', error.message);
   }
 }
 
-testFetchBookByISBN();
+testFetchBookByTitle();

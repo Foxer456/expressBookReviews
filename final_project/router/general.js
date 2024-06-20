@@ -44,7 +44,39 @@ const fetchBookByISBN = async (isbn) => {
     fetchBookByISBN
   };
 
+  // Function to fetch books based on author
+const fetchBooksByAuthor = async (author) => {
+    const endpoint = `https://lukasfuchs14-5000.theianext-1-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai/author/${author}`;
+  
+    try {
+      const response = await axios.get(endpoint);
+      return response.data;
+    } catch (error) {
+      console.error(`Error fetching books by author ${author}:`, error.message);
+      throw error;
+    }
+  };
+  
+  module.exports = {
+    fetchBooksByAuthor
+  };
 
+// Function to fetch book details based on title
+const fetchBookByTitle = async (title) => {
+  const endpoint = `https://lukasfuchs14-5000.theianext-1-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai/title/${encodeURIComponent(title)}`;
+
+  try {
+    const response = await axios.get(endpoint);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching book with title ${title}:`, error.message);
+    throw error;
+  }
+};
+
+module.exports = {
+  fetchBookByTitle
+};
   
   
   

@@ -1,12 +1,13 @@
-const { fetchBooks } = require('./general');
+const { fetchBookByISBN } = require('./general');
 
-async function testFetchBooks() {
+async function testFetchBookByISBN() {
   try {
-    const books = await fetchBooks();
-    console.log('List of books:', books);
+    const isbn = '2'; // Replace with a valid ISBN
+    const book = await fetchBookByISBN(isbn);
+    console.log('Book details:', book);
   } catch (error) {
     console.error('Error:', error.message);
   }
 }
 
-testFetchBooks();
+testFetchBookByISBN();

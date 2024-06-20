@@ -8,18 +8,44 @@ const axios = require('axios');
 
 // Function to fetch the list of books available in the shop
 const fetchBooks = async () => {
-    try {
-      const response = await axios.get('https://lukasfuchs14-5000.theianext-1-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai/'); // Replace with your actual endpoint
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching books:', error.message);
-      throw error;
+  const endpoint = 'https://lukasfuchs14-5000.theianext-1-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai/'; // Replace with your actual API endpoint for fetching books
+
+  try {
+    const response = await axios.get(endpoint);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching books:', error.message);
+    throw error;
+  }
+};
+
+module.exports = {
+  fetchBooks
+};
+
+// Function to fetch book details based on ISBN
+const fetchBookByISBN = async (isbn) => {
+  const endpoint = `https://lukasfuchs14-5000.theianext-1-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai/${isbn}`;
+
+  try {
+    const response = await axios.get(endpoint);
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.status === 404) {
+      console.error(`Book with ISBN ${isbn} not found.`);
+    } else {
+      console.error(`Error fetching book with ISBN ${isbn}:`, error.message);
     }
-  };
+    throw error; // Re-throw the error to propagate it
+  }
+};
+
+module.exports = {
+  fetchBookByISBN
+};
+
   
-  module.exports = {
-    fetchBooks
-  };
+  
   
 // Check if a user with the given username already exists
 const doesExist = (username) => {

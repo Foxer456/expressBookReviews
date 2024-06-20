@@ -25,24 +25,25 @@ module.exports = {
 
 // Function to fetch book details based on ISBN
 const fetchBookByISBN = async (isbn) => {
-  const endpoint = `https://lukasfuchs14-5000.theianext-1-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai/${isbn}`;
-
-  try {
-    const response = await axios.get(endpoint);
-    return response.data;
-  } catch (error) {
-    if (error.response && error.response.status === 404) {
-      console.error(`Book with ISBN ${isbn} not found.`);
-    } else {
-      console.error(`Error fetching book with ISBN ${isbn}:`, error.message);
+    const endpoint = `https://lukasfuchs14-5000.theianext-1-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai/isbn/${isbn}`;
+  
+    try {
+      const response = await axios.get(endpoint);
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        console.error(`Book with ISBN ${isbn} not found.`);
+      } else {
+        console.error(`Error fetching book with ISBN ${isbn}:`, error.message);
+      }
+      throw error; // Re-throw the error to propagate it
     }
-    throw error; // Re-throw the error to propagate it
-  }
-};
+  };
+  
+  module.exports = {
+    fetchBookByISBN
+  };
 
-module.exports = {
-  fetchBookByISBN
-};
 
   
   
